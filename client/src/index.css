@@ -510,23 +510,26 @@
 
 /* Enhanced Print/PDF Media Queries - The key fix for the "paper inside paper" issue */
 @media print {
-  /* Reset body styling for print - removes web background */
-  body {
+  /* Reset ALL styling for print - removes web background and any container effects */
+  html, body {
     background: white !important;
     background-image: none !important;
     padding: 0 !important;
     margin: 0 !important;
     font-size: 12pt;
     line-height: 1.4;
+    height: auto !important;
+    min-height: auto !important;
   }
   
-  /* Hide the generator form completely */
+  /* Hide ALL non-estimate content completely */
   .jlr-container:has(.jlr-form-section) {
     display: none !important;
   }
   
-  /* Remove ALL container styling for print - this is the main fix */
-  .jlr-container {
+  /* Only show the estimate preview container */
+  .jlr-container:has(.jlr-estimate-preview) {
+    display: block !important;
     max-width: none !important;
     width: 100% !important;
     margin: 0 !important;
@@ -535,19 +538,23 @@
     border-radius: 0 !important;
     box-shadow: none !important;
     border: none !important;
+    overflow: visible !important;
   }
   
-  /* Full-page estimate preview - removes nested appearance */
+  /* Full-page estimate preview - completely removes container styling */
   .jlr-estimate-preview {
     display: block !important;
     max-width: none !important;
     width: 100% !important;
     margin: 0 !important;
-    padding: 20px !important;
+    padding: 30px !important;
     background: white !important;
     border: none !important;
     box-shadow: none !important;
-    min-height: 100vh;
+    height: auto !important;
+    min-height: auto !important;
+    page-break-before: auto !important;
+    page-break-after: auto !important;
     page-break-inside: avoid;
   }
   
@@ -556,64 +563,150 @@
     display: none !important;
   }
   
-  /* Optimize header for print */
+  /* Logo section styling for print */
+  .jlr-logo {
+    width: 100px !important;
+    height: 100px !important;
+    background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
+  }
+  
+  .jlr-logo-text {
+    color: var(--jlr-primary) !important;
+    font-weight: bold !important;
+    font-size: 1.1rem !important;
+  }
+  
+  /* Optimize header for print - match preview exactly */
   .jlr-estimate-header {
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid var(--jlr-primary);
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    margin-bottom: 30px !important;
+    padding-bottom: 15px !important;
+    border-bottom: 2px solid var(--jlr-primary) !important;
     page-break-inside: avoid;
   }
   
-  /* Ensure proper spacing and sizing */
+  .jlr-logo-section {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+  }
+  
+  .jlr-company-info {
+    text-align: right !important;
+    line-height: 1.6 !important;
+  }
+  
+  .jlr-company-info strong {
+    font-size: 1.1rem !important;
+    color: var(--jlr-primary) !important;
+  }
+  
+  /* Title styling - match preview exactly */
   .jlr-estimate-title {
-    font-size: 24pt;
-    margin: 20px 0;
+    text-align: center !important;
+    font-size: 2.2rem !important;
+    font-weight: bold !important;
+    color: var(--jlr-primary) !important;
+    margin: 25px 0 !important;
+    letter-spacing: 2px !important;
     page-break-inside: avoid;
   }
   
+  /* Details section - match preview exactly */
   .jlr-estimate-details {
-    margin-bottom: 25px;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 25px !important;
+    margin-bottom: 25px !important;
     page-break-inside: avoid;
   }
   
-  /* Table styling for print */
+  .jlr-detail-section {
+    background: hsl(60, 4.8%, 95.9%) !important;
+    padding: 18px !important;
+    border-radius: 8px !important;
+    border-left: 4px solid var(--jlr-primary) !important;
+  }
+  
+  .jlr-detail-section strong {
+    color: var(--jlr-primary) !important;
+    font-size: 1.05rem !important;
+  }
+  
+  .jlr-client-details {
+    grid-column: 1 / -1 !important;
+  }
+  
+  /* Services title */
+  .jlr-services-title {
+    font-size: 1.2rem !important;
+    font-weight: bold !important;
+    color: var(--jlr-primary) !important;
+    margin-bottom: 12px !important;
+  }
+  
+  /* Table styling for print - match preview exactly */
   .jlr-estimate-services-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-bottom: 20px !important;
     page-break-inside: auto;
-    border-collapse: collapse;
-    width: 100%;
   }
   
   .jlr-estimate-services-table th {
     background-color: var(--jlr-primary) !important;
     color: white !important;
-    padding: 12px;
-    font-size: 11pt;
+    padding: 12px 15px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    font-size: 11pt !important;
     page-break-inside: avoid;
     page-break-after: avoid;
   }
   
   .jlr-estimate-services-table td {
-    padding: 10px 12px;
-    border: 1px solid hsl(20, 5.9%, 90%);
-    font-size: 10pt;
+    border: 1px solid hsl(20, 5.9%, 90%) !important;
+    padding: 10px 15px !important;
+    font-size: 10pt !important;
     page-break-inside: avoid;
+  }
+  
+  .jlr-estimate-services-table tr:nth-child(even) {
+    background-color: hsl(60, 4.8%, 95.9%) !important;
   }
   
   .jlr-estimate-services-table tr {
     page-break-inside: avoid;
   }
   
-  /* Total section optimization */
+  .jlr-amount-cell {
+    text-align: right !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Total section - match preview exactly */
   .jlr-estimate-total-section {
-    margin-top: 25px;
-    padding: 15px;
-    background: var(--jlr-primary) !important;
+    text-align: right !important;
+    margin-top: 25px !important;
+    padding: 18px !important;
+    background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%) !important;
     color: white !important;
+    border-radius: 8px !important;
     page-break-inside: avoid;
   }
   
   .jlr-estimate-total-amount {
-    font-size: 18pt;
+    font-size: 1.8rem !important;
+    font-weight: bold !important;
   }
   
   /* Remove any remaining shadows or decorative elements */
@@ -622,25 +715,18 @@
     text-shadow: none !important;
   }
   
-  /* Ensure colors print correctly */
-  .jlr-logo {
-    background: var(--jlr-primary) !important;
-    color: white !important;
-  }
-  
-  .jlr-detail-section {
-    background: hsl(60, 4.8%, 95.9%) !important;
-    border-left: 4px solid var(--jlr-primary) !important;
-  }
-  
-  /* Force page breaks where appropriate */
-  .jlr-estimate-preview {
-    page-break-before: always;
-  }
-  
-  /* Ensure full width utilization */
+  /* Ensure full width utilization and proper page setup */
   @page {
-    margin: 0.5in;
+    margin: 0.75in;
     size: letter;
+  }
+  
+  /* Force single page layout */
+  html {
+    overflow: hidden !important;
+  }
+  
+  body {
+    overflow: visible !important;
   }
 }
