@@ -564,7 +564,7 @@
     display: none !important;
   }
   
-  /* Header section - EXACT match to preview */
+  /* Header section - EXACT match to preview with proper flexbox */
   .jlr-estimate-header {
     display: flex !important;
     justify-content: space-between !important;
@@ -573,12 +573,16 @@
     padding-bottom: 20px !important;
     border-bottom: 2px solid hsl(215, 58%, 40%) !important;
     page-break-inside: avoid;
+    width: 100% !important;
+    flex-wrap: nowrap !important;
   }
   
   .jlr-logo-section {
     display: flex !important;
     align-items: center !important;
     gap: 15px !important;
+    flex: 1 !important;
+    max-width: 60% !important;
   }
   
   /* Logo styling - EXACT match to preview with proper blue color */
@@ -607,6 +611,9 @@
   .jlr-company-info {
     text-align: right !important;
     line-height: 1.6 !important;
+    flex: 0 0 auto !important;
+    max-width: 35% !important;
+    align-self: flex-start !important;
   }
   
   .jlr-company-info strong {
