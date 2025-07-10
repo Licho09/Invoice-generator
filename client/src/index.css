@@ -508,7 +508,7 @@
   }
 }
 
-/* Enhanced Print/PDF Media Queries - Pixel-perfect match to preview */
+/* Enhanced Print/PDF Media Queries - Pixel-perfect match to preview with proper colors */
 @media print {
   /* Reset ALL styling for print - removes web background and any container effects */
   html, body {
@@ -571,7 +571,7 @@
     align-items: flex-start !important;
     margin-bottom: 40px !important;
     padding-bottom: 20px !important;
-    border-bottom: 2px solid var(--jlr-primary) !important;
+    border-bottom: 2px solid hsl(215, 58%, 40%) !important;
     page-break-inside: avoid;
   }
   
@@ -581,11 +581,13 @@
     gap: 15px !important;
   }
   
-  /* Logo styling - EXACT match to preview */
+  /* Logo styling - EXACT match to preview with proper blue color */
   .jlr-logo {
     width: 120px !important;
     height: 120px !important;
-    background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%) !important;
+    background: hsl(215, 58%, 40%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
@@ -596,7 +598,7 @@
   }
   
   .jlr-logo-text {
-    color: var(--jlr-primary) !important;
+    color: hsl(215, 58%, 40%) !important;
     font-weight: bold !important;
     font-size: 1.2rem !important;
   }
@@ -609,7 +611,7 @@
   
   .jlr-company-info strong {
     font-size: 1.1rem !important;
-    color: var(--jlr-primary) !important;
+    color: hsl(215, 58%, 40%) !important;
   }
   
   /* Title styling - EXACT match to preview */
@@ -617,7 +619,7 @@
     text-align: center !important;
     font-size: 2.5rem !important;
     font-weight: bold !important;
-    color: var(--jlr-primary) !important;
+    color: hsl(215, 58%, 40%) !important;
     margin: 30px 0 !important;
     letter-spacing: 2px !important;
     page-break-inside: avoid;
@@ -634,13 +636,15 @@
   
   .jlr-detail-section {
     background: hsl(60, 4.8%, 95.9%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     padding: 20px !important;
     border-radius: 8px !important;
-    border-left: 4px solid var(--jlr-primary) !important;
+    border-left: 4px solid hsl(215, 58%, 40%) !important;
   }
   
   .jlr-detail-section strong {
-    color: var(--jlr-primary) !important;
+    color: hsl(215, 58%, 40%) !important;
     font-size: 1.1rem !important;
   }
   
@@ -652,7 +656,7 @@
   .jlr-services-title {
     font-size: 1.3rem !important;
     font-weight: bold !important;
-    color: var(--jlr-primary) !important;
+    color: hsl(215, 58%, 40%) !important;
     margin-bottom: 15px !important;
   }
   
@@ -665,7 +669,9 @@
   }
   
   .jlr-estimate-services-table th {
-    background-color: var(--jlr-primary) !important;
+    background-color: hsl(215, 58%, 40%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     color: white !important;
     padding: 15px !important;
     text-align: left !important;
@@ -682,6 +688,8 @@
   
   .jlr-estimate-services-table tr:nth-child(even) {
     background-color: hsl(60, 4.8%, 95.9%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
   
   .jlr-estimate-services-table tr {
@@ -698,7 +706,9 @@
     text-align: right !important;
     margin-top: 30px !important;
     padding: 20px !important;
-    background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%) !important;
+    background: hsl(215, 58%, 40%) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     color: white !important;
     border-radius: 8px !important;
     page-break-inside: avoid;
@@ -715,10 +725,16 @@
     text-shadow: none !important;
   }
   
-  /* Ensure full width utilization and proper page setup */
+  /* Ensure full width utilization and proper page setup - NO HEADERS/FOOTERS */
   @page {
     margin: 0.5in;
     size: letter;
+    @top-left { content: ""; }
+    @top-center { content: ""; }
+    @top-right { content: ""; }
+    @bottom-left { content: ""; }
+    @bottom-center { content: ""; }
+    @bottom-right { content: ""; }
   }
   
   /* Force single page layout */
