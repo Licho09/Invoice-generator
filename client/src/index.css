@@ -1,0 +1,646 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(20, 14.3%, 4.1%);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(20, 14.3%, 4.1%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(20, 14.3%, 4.1%);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(20, 14.3%, 4.1%);
+  --radius: 0.5rem;
+  
+  /* JLR Construction specific colors */
+  --jlr-primary: hsl(215, 58%, 40%);
+  --jlr-primary-dark: hsl(215, 58%, 25%);
+  --jlr-gradient-start: hsl(235, 63%, 71%);
+  --jlr-gradient-end: hsl(272, 26%, 62%);
+  --jlr-success: hsl(142, 76%, 36%);
+  --jlr-success-hover: hsl(142, 76%, 30%);
+  --jlr-danger: hsl(0, 65%, 51%);
+  --jlr-danger-hover: hsl(0, 65%, 45%);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: linear-gradient(135deg, var(--jlr-gradient-start) 0%, var(--jlr-gradient-end) 100%);
+    min-height: 100vh;
+    padding: 20px;
+  }
+}
+
+/* JLR Construction Specific Styles */
+.jlr-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.jlr-header {
+  background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%);
+  color: white;
+  padding: 30px;
+  text-align: center;
+}
+
+.jlr-logo-placeholder {
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.5rem;
+}
+
+.jlr-toggle-buttons {
+  display: inline-flex;
+  background: rgba(255,255,255,0.1);
+  border-radius: 25px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.jlr-toggle-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.jlr-toggle-btn.active {
+  background: white;
+  color: var(--jlr-primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.jlr-toggle-btn:hover:not(.active) {
+  background: rgba(255,255,255,0.1);
+}
+
+.jlr-form-section {
+  padding: 40px;
+}
+
+.jlr-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.jlr-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.jlr-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.jlr-form-group label {
+  font-weight: 600;
+  color: var(--jlr-primary);
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.jlr-form-group input,
+.jlr-form-group textarea {
+  padding: 12px 16px;
+  border: 2px solid hsl(20, 5.9%, 90%);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.jlr-form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.jlr-form-group input:focus,
+.jlr-form-group textarea:focus {
+  outline: none;
+  border-color: var(--jlr-primary);
+  box-shadow: 0 0 0 3px hsla(215, 58%, 40%, 0.1);
+}
+
+.jlr-services-section {
+  margin-bottom: 30px;
+}
+
+.jlr-services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.jlr-services-header h3 {
+  color: var(--jlr-primary);
+  font-size: 1.4rem;
+}
+
+.jlr-add-service-btn {
+  background: var(--jlr-success);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jlr-add-service-btn:hover {
+  background: var(--jlr-success-hover);
+  transform: translateY(-2px);
+}
+
+.jlr-services-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.jlr-services-table th {
+  background: hsl(60, 4.8%, 95.9%);
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: hsl(25, 5.3%, 44.7%);
+  border-bottom: 2px solid hsl(20, 5.9%, 90%);
+}
+
+.jlr-services-table td {
+  padding: 15px;
+  border-bottom: 1px solid hsl(20, 5.9%, 90%);
+}
+
+.jlr-services-table input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid hsl(20, 5.9%, 90%);
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.jlr-services-table input:focus {
+  outline: none;
+  border-color: var(--jlr-primary);
+}
+
+.jlr-remove-btn {
+  background: var(--jlr-danger);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.jlr-remove-btn:hover {
+  background: var(--jlr-danger-hover);
+}
+
+.jlr-total-section {
+  background: hsl(60, 4.8%, 95.9%);
+  padding: 20px;
+  border-radius: 8px;
+  margin: 30px 0;
+  text-align: right;
+}
+
+.jlr-total-amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--jlr-primary);
+}
+
+.jlr-generate-btn {
+  background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.jlr-generate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px hsla(215, 58%, 40%, 0.3);
+}
+
+/* Estimate Preview Styles */
+.jlr-estimate-preview {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border: 1px solid hsl(20, 5.9%, 90%);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.jlr-estimate-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--jlr-primary);
+}
+
+.jlr-logo-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.jlr-logo {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.jlr-logo-text {
+  color: var(--jlr-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.jlr-company-info {
+  text-align: right;
+  line-height: 1.6;
+}
+
+.jlr-company-info strong {
+  font-size: 1.1rem;
+  color: var(--jlr-primary);
+}
+
+.jlr-estimate-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--jlr-primary);
+  margin: 30px 0;
+  letter-spacing: 2px;
+}
+
+.jlr-estimate-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.jlr-detail-section {
+  background: hsl(60, 4.8%, 95.9%);
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--jlr-primary);
+}
+
+.jlr-detail-section strong {
+  color: var(--jlr-primary);
+  font-size: 1.1rem;
+}
+
+.jlr-client-details {
+  grid-column: 1 / -1;
+}
+
+.jlr-services-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--jlr-primary);
+  margin-bottom: 15px;
+}
+
+.jlr-estimate-services-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.jlr-estimate-services-table th {
+  background-color: var(--jlr-primary);
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.jlr-estimate-services-table td {
+  border: 1px solid hsl(20, 5.9%, 90%);
+  padding: 12px 15px;
+}
+
+.jlr-estimate-services-table tr:nth-child(even) {
+  background-color: hsl(60, 4.8%, 95.9%);
+}
+
+.jlr-amount-cell {
+  text-align: right;
+  font-weight: 600;
+}
+
+.jlr-estimate-total-section {
+  text-align: right;
+  margin-top: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%);
+  color: white;
+  border-radius: 8px;
+}
+
+.jlr-estimate-total-amount {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.jlr-actions {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid hsl(20, 5.9%, 90%);
+}
+
+.jlr-btn {
+  background: linear-gradient(135deg, var(--jlr-primary) 0%, var(--jlr-primary-dark) 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.jlr-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px hsla(215, 58%, 40%, 0.3);
+}
+
+.jlr-btn-secondary {
+  background: hsl(240, 3.7%, 15.9%);
+}
+
+.jlr-btn-secondary:hover {
+  background: hsl(240, 3.7%, 20%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+  
+  .jlr-form-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .jlr-services-table {
+    font-size: 0.9rem;
+  }
+  
+  .jlr-services-table th,
+  .jlr-services-table td {
+    padding: 10px;
+  }
+
+  .jlr-estimate-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .jlr-company-info {
+    text-align: center;
+  }
+  
+  .jlr-estimate-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .jlr-estimate-title {
+    font-size: 2rem;
+  }
+}
+
+/* Enhanced Print/PDF Media Queries - The key fix for the "paper inside paper" issue */
+@media print {
+  /* Reset body styling for print - removes web background */
+  body {
+    background: white !important;
+    background-image: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  /* Hide the generator form completely */
+  .jlr-container:has(.jlr-form-section) {
+    display: none !important;
+  }
+  
+  /* Remove ALL container styling for print - this is the main fix */
+  .jlr-container {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  
+  /* Full-page estimate preview - removes nested appearance */
+  .jlr-estimate-preview {
+    display: block !important;
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: white !important;
+    border: none !important;
+    box-shadow: none !important;
+    min-height: 100vh;
+    page-break-inside: avoid;
+  }
+  
+  /* Hide interactive elements */
+  .jlr-actions {
+    display: none !important;
+  }
+  
+  /* Optimize header for print */
+  .jlr-estimate-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--jlr-primary);
+    page-break-inside: avoid;
+  }
+  
+  /* Ensure proper spacing and sizing */
+  .jlr-estimate-title {
+    font-size: 24pt;
+    margin: 20px 0;
+    page-break-inside: avoid;
+  }
+  
+  .jlr-estimate-details {
+    margin-bottom: 25px;
+    page-break-inside: avoid;
+  }
+  
+  /* Table styling for print */
+  .jlr-estimate-services-table {
+    page-break-inside: auto;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .jlr-estimate-services-table th {
+    background-color: var(--jlr-primary) !important;
+    color: white !important;
+    padding: 12px;
+    font-size: 11pt;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+  
+  .jlr-estimate-services-table td {
+    padding: 10px 12px;
+    border: 1px solid hsl(20, 5.9%, 90%);
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+  
+  .jlr-estimate-services-table tr {
+    page-break-inside: avoid;
+  }
+  
+  /* Total section optimization */
+  .jlr-estimate-total-section {
+    margin-top: 25px;
+    padding: 15px;
+    background: var(--jlr-primary) !important;
+    color: white !important;
+    page-break-inside: avoid;
+  }
+  
+  .jlr-estimate-total-amount {
+    font-size: 18pt;
+  }
+  
+  /* Remove any remaining shadows or decorative elements */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  /* Ensure colors print correctly */
+  .jlr-logo {
+    background: var(--jlr-primary) !important;
+    color: white !important;
+  }
+  
+  .jlr-detail-section {
+    background: hsl(60, 4.8%, 95.9%) !important;
+    border-left: 4px solid var(--jlr-primary) !important;
+  }
+  
+  /* Force page breaks where appropriate */
+  .jlr-estimate-preview {
+    page-break-before: always;
+  }
+  
+  /* Ensure full width utilization */
+  @page {
+    margin: 0.5in;
+    size: letter;
+  }
+}
