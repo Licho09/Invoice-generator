@@ -542,13 +542,13 @@
     overflow: visible !important;
   }
   
-  /* Full-page estimate preview - EXACT match to preview styling */
+  /* Full-page estimate preview - Reduced side margins for more stretch */
   .jlr-estimate-preview {
     display: block !important;
     max-width: none !important;
     width: 100% !important;
     margin: 0 auto !important;
-    padding: 40px !important;
+    padding: 30px 20px !important;
     background: white !important;
     border: none !important;
     box-shadow: none !important;
@@ -594,7 +594,7 @@
     margin-top: 10px !important;
   }
   
-  /* Logo styling - EXACT match to preview with proper blue color */
+  /* Logo styling - Centered JLR text in circle */
   .jlr-logo {
     width: 120px !important;
     height: 120px !important;
@@ -608,12 +608,15 @@
     color: white !important;
     font-size: 2rem !important;
     font-weight: bold !important;
+    text-align: center !important;
+    line-height: 1 !important;
   }
   
   .jlr-logo-text {
     color: hsl(215, 58%, 40%) !important;
     font-weight: bold !important;
     font-size: 1.2rem !important;
+    text-align: left !important;
   }
   
   /* Company info - Use table-cell for reliable right positioning */

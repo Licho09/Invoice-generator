@@ -33,8 +33,8 @@ export default function EstimatePreview({ data, onBackToForm }: EstimatePreviewP
             <strong>JLR Construction LLC</strong><br />
             125 Jones Rd<br />
             Angleton, TX 77515<br />
-            Phone: (832) 283-9917<br />
-            Email: Ricardochirinos329@gmail.com
+            <strong>Phone:</strong> (832) 283-9917<br />
+            <strong>Email:</strong> Ricardochirinos329@gmail.com
           </div>
         </div>
 
