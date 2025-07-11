@@ -564,25 +564,34 @@
     display: none !important;
   }
   
-  /* Header section - EXACT match to preview with proper flexbox */
+  /* Header section - Use table layout for reliable print positioning */
   .jlr-estimate-header {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: flex-start !important;
+    display: table !important;
+    width: 100% !important;
     margin-bottom: 40px !important;
     padding-bottom: 20px !important;
     border-bottom: 2px solid hsl(215, 58%, 40%) !important;
     page-break-inside: avoid;
-    width: 100% !important;
-    flex-wrap: nowrap !important;
+    table-layout: fixed !important;
   }
   
   .jlr-logo-section {
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
-    flex: 1 !important;
-    max-width: 60% !important;
+    display: table-cell !important;
+    vertical-align: top !important;
+    width: 60% !important;
+    padding-right: 20px !important;
+  }
+  
+  .jlr-logo-section > .jlr-logo {
+    display: inline-block !important;
+    vertical-align: top !important;
+    margin-right: 15px !important;
+  }
+  
+  .jlr-logo-section > .jlr-logo-text {
+    display: inline-block !important;
+    vertical-align: top !important;
+    margin-top: 10px !important;
   }
   
   /* Logo styling - EXACT match to preview with proper blue color */
@@ -607,16 +616,14 @@
     font-size: 1.2rem !important;
   }
   
-  /* Company info - EXACT match to preview - positioned to right of logo */
+  /* Company info - Use table-cell for reliable right positioning */
   .jlr-company-info {
+    display: table-cell !important;
+    vertical-align: top !important;
+    width: 40% !important;
     text-align: right !important;
     line-height: 1.6 !important;
-    flex: 0 0 auto !important;
-    width: 35% !important;
-    max-width: 35% !important;
-    align-self: flex-start !important;
-    display: block !important;
-    position: relative !important;
+    padding-left: 20px !important;
   }
   
   .jlr-company-info strong {
