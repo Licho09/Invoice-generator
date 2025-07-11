@@ -607,13 +607,16 @@
     font-size: 1.2rem !important;
   }
   
-  /* Company info - EXACT match to preview */
+  /* Company info - EXACT match to preview - positioned to right of logo */
   .jlr-company-info {
     text-align: right !important;
     line-height: 1.6 !important;
     flex: 0 0 auto !important;
+    width: 35% !important;
     max-width: 35% !important;
     align-self: flex-start !important;
+    display: block !important;
+    position: relative !important;
   }
   
   .jlr-company-info strong {
@@ -657,10 +660,9 @@
     font-size: 1.1rem !important;
   }
   
-  /* Client details should NOT span full width - keep in right column */
+  /* Client details should span full width like in preview */
   .jlr-client-details {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
+    grid-column: 1 / -1 !important;
   }
   
   /* Services title - EXACT match to preview */
