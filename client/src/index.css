@@ -542,13 +542,13 @@
     overflow: visible !important;
   }
   
-  /* Full-page estimate preview - Minimal side margins for maximum stretch */
+  /* Full-page estimate preview - Ultra minimal side margins */
   .jlr-estimate-preview {
     display: block !important;
     max-width: none !important;
     width: 100% !important;
     margin: 0 auto !important;
-    padding: 30px 10px !important;
+    padding: 30px 5px !important;
     background: white !important;
     border: none !important;
     box-shadow: none !important;
@@ -580,18 +580,23 @@
     vertical-align: top !important;
     width: 60% !important;
     padding-right: 20px !important;
+    text-align: left !important;
+    padding-left: 0 !important;
   }
   
   .jlr-logo-section > .jlr-logo {
     display: inline-block !important;
     vertical-align: top !important;
     margin-right: 15px !important;
+    margin-left: 0 !important;
   }
   
   .jlr-logo-section > .jlr-logo-text {
     display: inline-block !important;
     vertical-align: top !important;
     margin-top: 10px !important;
+    text-align: left !important;
+    margin-left: 0 !important;
   }
   
   /* Logo styling - Perfectly centered JLR text in circle */
