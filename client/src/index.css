@@ -542,13 +542,13 @@
     overflow: visible !important;
   }
   
-  /* Full-page estimate preview - Reduced side margins for more stretch */
+  /* Full-page estimate preview - Minimal side margins for maximum stretch */
   .jlr-estimate-preview {
     display: block !important;
     max-width: none !important;
     width: 100% !important;
     margin: 0 auto !important;
-    padding: 30px 20px !important;
+    padding: 30px 10px !important;
     background: white !important;
     border: none !important;
     box-shadow: none !important;
@@ -594,7 +594,7 @@
     margin-top: 10px !important;
   }
   
-  /* Logo styling - Centered JLR text in circle */
+  /* Logo styling - Perfectly centered JLR text in circle */
   .jlr-logo {
     width: 120px !important;
     height: 120px !important;
@@ -610,6 +610,7 @@
     font-weight: bold !important;
     text-align: center !important;
     line-height: 1 !important;
+    position: relative !important;
   }
   
   .jlr-logo-text {
@@ -627,11 +628,13 @@
     text-align: right !important;
     line-height: 1.6 !important;
     padding-left: 20px !important;
+    white-space: nowrap !important;
   }
   
   .jlr-company-info strong {
     font-size: 1.1rem !important;
-    color: hsl(215, 58%, 40%) !important;
+    color: black !important;
+    font-weight: bold !important;
   }
   
   /* Title styling - EXACT match to preview */
