@@ -44,7 +44,8 @@ export default function CustomDesigner() {
   const [command, setCommand] = useState("");
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [tables, setTables] = useState<Table[]>([]);
-  const [selectedShapeColor, setSelectedShapeColor] = useState("#3B82F6");
+  const [selectedFont, setSelectedFont] = useState("Arial");
+  const [selectedFontSize, setSelectedFontSize] = useState("14");
   const [placingShape, setPlacingShape] = useState<PlacingShape | null>(null);
   const [previewShape, setPreviewShape] = useState<Shape | null>(null);
   const [copiedData, setCopiedData] = useState<DesignData | null>(null);
@@ -250,7 +251,6 @@ export default function CustomDesigner() {
         y: startY,
         width: 0,
         height: 0,
-        color: selectedShapeColor,
       });
     } else {
       // Start text editing at click position
@@ -270,13 +270,14 @@ export default function CustomDesigner() {
         textElement.style.minWidth = '200px';
         textElement.style.minHeight = '20px';
         textElement.style.outline = 'none';
-        textElement.style.fontSize = '14px';
-        textElement.style.fontFamily = 'system-ui, sans-serif';
+        textElement.style.fontSize = `${selectedFontSize}px`;
+        textElement.style.fontFamily = selectedFont;
         textElement.style.lineHeight = '1.5';
         textElement.style.padding = '4px';
         textElement.style.border = '1px solid #cbd5e1';
         textElement.style.borderRadius = '4px';
         textElement.style.backgroundColor = 'white';
+        textElement.style.color = 'black';
         textElement.style.zIndex = '10';
         
         editorRef.current.appendChild(textElement);
@@ -315,7 +316,6 @@ export default function CustomDesigner() {
       y: newY,
       width: newWidth,
       height: newHeight,
-      color: selectedShapeColor,
     });
   };
 
@@ -323,7 +323,7 @@ export default function CustomDesigner() {
   const onCanvasMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!previewShape || !placingShape) return;
     if (previewShape.width > 10 && previewShape.height > 10) {
-      setShapes((prev) => [...prev, { ...previewShape, id: Date.now(), color: selectedShapeColor }]);
+      setShapes((prev) => [...prev, { ...previewShape, id: Date.now() }]);
     }
     setPreviewShape(null);
     setPlacingShape(null);
@@ -348,9 +348,21 @@ export default function CustomDesigner() {
   const handleCommand = (cmd: string, value?: string) => {
     setCommand(cmd);
     
-    // Handle shape color selection
-    if (cmd === "shapeColor" && value) {
-      setSelectedShapeColor(value);
+    // Handle font selection
+    if (cmd === "fontFamily" && value) {
+      setSelectedFont(value);
+      if (currentTextElement) {
+        currentTextElement.style.fontFamily = value;
+      }
+      return;
+    }
+    
+    // Handle font size selection
+    if (cmd === "fontSize" && value) {
+      setSelectedFontSize(value);
+      if (currentTextElement) {
+        currentTextElement.style.fontSize = `${value}px`;
+      }
       return;
     }
     
@@ -447,7 +459,7 @@ export default function CustomDesigner() {
         </div>
       </div>
 
-      <Ribbon onCommand={handleCommand} selectedShapeColor={selectedShapeColor} />
+      <Ribbon onCommand={handleCommand} selectedFont={selectedFont} selectedFontSize={selectedFontSize} />
 
       <EditorCanvas
         shapes={shapes}
@@ -460,7 +472,6 @@ export default function CustomDesigner() {
         onCanvasMouseDown={onCanvasMouseDown}
         onCanvasMouseMove={onCanvasMouseMove}
         onCanvasMouseUp={onCanvasMouseUp}
-        selectedShapeColor={selectedShapeColor}
       />
     </div>
   );

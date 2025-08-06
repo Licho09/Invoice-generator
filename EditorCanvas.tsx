@@ -50,7 +50,6 @@ export default function EditorCanvas({
   onCanvasMouseDown,
   onCanvasMouseMove,
   onCanvasMouseUp,
-  selectedShapeColor,
 }: {
   shapes: Shape[];
   setShapes: React.Dispatch<React.SetStateAction<Shape[]>>;
@@ -62,7 +61,6 @@ export default function EditorCanvas({
   onCanvasMouseDown: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onCanvasMouseMove: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onCanvasMouseUp: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  selectedShapeColor: string;
 }) {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedTable, setSelectedTable] = useState<number | null>(null);
@@ -116,6 +114,13 @@ export default function EditorCanvas({
       )
     );
     setContextMenu({ visible: false, x: 0, y: 0, shapeId: null });
+  };
+
+  // Delete shape
+  const deleteShape = (shapeId: number) => {
+    setShapes((prev) => prev.filter((shape) => shape.id !== shapeId));
+    setContextMenu({ visible: false, x: 0, y: 0, shapeId: null });
+    setSelectedId(null);
   };
 
   // Start resizing a shape
@@ -248,11 +253,21 @@ export default function EditorCanvas({
     </>
   );
 
-  // Get shape color (with fallback to selected shape color)
+  // Get shape color (with fallback to default colors)
   const getShapeColor = (shape: Shape, isPreview = false) => {
-    const customColor = shape.color || selectedShapeColor;
+    if (shape.color) {
+      return isPreview ? `${shape.color}99` : shape.color;
+    }
     
-    return isPreview ? `${customColor}99` : customColor; // Add transparency for preview
+    // Default colors based on shape type
+    const defaultColors = {
+      rectangle: "#3B82F6",
+      circle: "#10B981", 
+      triangle: "#F97316"
+    };
+    
+    const color = defaultColors[shape.type];
+    return isPreview ? `${color}99` : color;
   };
 
   // Render individual shape or preview shape (if isPreview=true disables interaction)
@@ -371,12 +386,7 @@ export default function EditorCanvas({
         }}
         onMouseDown={(e) => onTableMouseDown(table.id, e)}
       >
-        {/* Table Header */}
-        <div className="bg-slate-100 border border-slate-300 p-1 text-xs font-semibold text-slate-600 cursor-move">
-          Table {table.rows}x{table.cols}
-        </div>
-        
-        {/* Table Grid */}
+        {/* Table Grid - No header, just the table */}
         <div 
           className="grid border border-slate-300 bg-white"
           style={{
@@ -398,8 +408,9 @@ export default function EditorCanvas({
                   type="text"
                   value={cell}
                   onChange={(e) => updateTableCell(table.id, rowIndex, colIndex, e.target.value)}
-                  className="w-full h-full text-xs border-none outline-none bg-transparent"
+                  className="w-full h-full text-xs border-none outline-none bg-transparent text-black"
                   placeholder={`R${rowIndex + 1}C${colIndex + 1}`}
+                  style={{ color: 'black' }}
                 />
               </div>
             ))
@@ -421,7 +432,7 @@ export default function EditorCanvas({
               radial-gradient(circle at 20px 20px, rgba(148, 163, 184, 0.1) 1px, transparent 1px)
             `,
             backgroundSize: "40px 40px",
-            cursor: selectedId !== null || selectedTable !== null ? "crosshair" : "default"
+            cursor: "text" // I-beam cursor for text editing
           }}
           onMouseDown={handleCanvasClick}
           onMouseMove={onCanvasMouseMove}
@@ -467,7 +478,7 @@ export default function EditorCanvas({
             </div>
           )}
 
-          {/* Context Menu for Shape Color Change */}
+          {/* Context Menu for Shape Color Change and Delete */}
           {contextMenu.visible && (
             <div
               className="fixed bg-white border border-slate-200 rounded-lg shadow-xl py-2 z-50"
@@ -478,6 +489,20 @@ export default function EditorCanvas({
               onClick={(e) => e.stopPropagation()}
             >
               <div className="px-3 py-1 text-xs font-semibold text-slate-600 border-b border-slate-100 mb-1">
+                Shape Options
+              </div>
+              
+              {/* Delete Button */}
+              <button
+                className="w-full px-3 py-2 text-left hover:bg-red-50 text-red-600 font-medium text-sm"
+                onClick={() => contextMenu.shapeId && deleteShape(contextMenu.shapeId)}
+              >
+                Delete Shape
+              </button>
+              
+              <div className="border-t border-slate-100 my-1"></div>
+              
+              <div className="px-3 py-1 text-xs font-semibold text-slate-600">
                 Change Color
               </div>
               <div className="grid grid-cols-4 gap-1 p-2 max-w-[200px]">

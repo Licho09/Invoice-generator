@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { useState } from "react";
-import { Bold, Italic, Underline, Type, Shapes, Palette, Copy, Clipboard, Download, Upload, Table } from "lucide-react";
+import { Bold, Italic, Underline, Type, Shapes, Palette, Copy, Clipboard, Download, Upload, Table, FontSize, Font } from "lucide-react";
 
 const colors = [
   { name: "Black", value: "#000000" },
@@ -12,28 +12,35 @@ const colors = [
   { name: "Purple", value: "#8B5CF6" },
 ];
 
-const shapeColors = [
-  { name: "Blue", value: "#3B82F6" },
-  { name: "Red", value: "#EF4444" },
-  { name: "Green", value: "#10B981" },
-  { name: "Orange", value: "#F97316" },
-  { name: "Purple", value: "#8B5CF6" },
-  { name: "Pink", value: "#EC4899" },
-  { name: "Yellow", value: "#EAB308" },
-  { name: "Gray", value: "#6B7280" },
+const fonts = [
+  "Arial",
+  "Times New Roman", 
+  "Helvetica",
+  "Georgia",
+  "Verdana",
+  "Courier New",
+  "Comic Sans MS",
+  "Impact"
+];
+
+const fontSizes = [
+  "8", "9", "10", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30", "32", "36", "40", "44", "48"
 ];
 
 export default function Ribbon({ 
   onCommand, 
-  selectedShapeColor 
+  selectedFont,
+  selectedFontSize
 }: { 
   onCommand: (cmd: string, value?: string) => void;
-  selectedShapeColor: string;
+  selectedFont: string;
+  selectedFontSize: string;
 }) {
   const [colorOpen, setColorOpen] = useState(false);
   const [shapeOpen, setShapeOpen] = useState(false);
-  const [shapeColorOpen, setShapeColorOpen] = useState(false);
   const [tableOpen, setTableOpen] = useState(false);
+  const [fontOpen, setFontOpen] = useState(false);
+  const [fontSizeOpen, setFontSizeOpen] = useState(false);
 
   // Create table grid for selection
   const renderTableGrid = () => {
@@ -108,6 +115,77 @@ export default function Ribbon({
           >
             <Upload className="w-4 h-4" />
           </Button>
+        </div>
+
+        {/* Separator */}
+        <div className="h-8 w-px bg-slate-300 flex-shrink-0" />
+
+        {/* Font Controls Section */}
+        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-200 flex-shrink-0">
+          <span className="text-sm font-medium text-slate-600 mr-2">Font</span>
+          
+          {/* Font Family */}
+          <Popover open={fontOpen} onOpenChange={setFontOpen}>
+            <PopoverTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="hover:bg-slate-100 text-slate-700 min-w-[80px]"
+              >
+                <Font className="w-4 h-4 mr-1" />
+                {selectedFont}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-3 w-48 bg-white shadow-xl border border-slate-200 rounded-lg">
+              <h4 className="text-sm font-semibold text-slate-700 mb-3">Choose Font</h4>
+              <div className="space-y-1 max-h-48 overflow-y-auto">
+                {fonts.map((font) => (
+                  <button
+                    key={font}
+                    className={`w-full flex items-center px-3 py-2 text-left hover:bg-slate-50 rounded-md transition-colors ${selectedFont === font ? 'bg-blue-50 text-blue-700' : ''}`}
+                    style={{ fontFamily: font }}
+                    onClick={() => {
+                      onCommand("fontFamily", font);
+                      setFontOpen(false);
+                    }}
+                  >
+                    <span className="text-sm">{font}</span>
+                  </button>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          {/* Font Size */}
+          <Popover open={fontSizeOpen} onOpenChange={setFontSizeOpen}>
+            <PopoverTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                className="hover:bg-slate-100 text-slate-700 min-w-[50px]"
+              >
+                <FontSize className="w-4 h-4 mr-1" />
+                {selectedFontSize}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-3 w-32 bg-white shadow-xl border border-slate-200 rounded-lg">
+              <h4 className="text-sm font-semibold text-slate-700 mb-3">Size</h4>
+              <div className="space-y-1 max-h-48 overflow-y-auto">
+                {fontSizes.map((size) => (
+                  <button
+                    key={size}
+                    className={`w-full flex items-center px-3 py-2 text-left hover:bg-slate-50 rounded-md transition-colors ${selectedFontSize === size ? 'bg-blue-50 text-blue-700' : ''}`}
+                    onClick={() => {
+                      onCommand("fontSize", size);
+                      setFontSizeOpen(false);
+                    }}
+                  >
+                    <span className="text-sm">{size}px</span>
+                  </button>
+                ))}
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
 
         {/* Separator */}
@@ -225,49 +303,6 @@ export default function Ribbon({
         {/* Separator */}
         <div className="h-8 w-px bg-slate-300 flex-shrink-0" />
 
-        {/* Shape Color Section */}
-        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-200 flex-shrink-0">
-          <span className="text-sm font-medium text-slate-600 mr-2">Shape Color</span>
-          <div className="flex items-center gap-1">
-            <div
-              className="w-6 h-6 rounded border border-slate-300 shadow-sm"
-              style={{ backgroundColor: selectedShapeColor }}
-              title="Current shape color"
-            />
-            <Popover open={shapeColorOpen} onOpenChange={setShapeColorOpen}>
-              <PopoverTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  className="hover:bg-slate-100 text-slate-700"
-                >
-                  <Palette className="w-4 h-4" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="p-3 w-48 bg-white shadow-xl border border-slate-200 rounded-lg">
-                <h4 className="text-sm font-semibold text-slate-700 mb-3">Choose Shape Color</h4>
-                <div className="grid grid-cols-4 gap-2">
-                  {shapeColors.map((color) => (
-                    <button
-                      key={color.value}
-                      className="w-8 h-8 rounded border border-slate-300 shadow-sm hover:scale-110 transition-transform"
-                      style={{ backgroundColor: color.value }}
-                      title={color.name}
-                      onClick={() => {
-                        onCommand("shapeColor", color.value);
-                        setShapeColorOpen(false);
-                      }}
-                    />
-                  ))}
-                </div>
-              </PopoverContent>
-            </Popover>
-          </div>
-        </div>
-
-        {/* Separator */}
-        <div className="h-8 w-px bg-slate-300 flex-shrink-0" />
-
         {/* Shapes Section */}
         <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-200 flex-shrink-0">
           <span className="text-sm font-medium text-slate-600 mr-2">Shapes</span>
@@ -292,10 +327,7 @@ export default function Ribbon({
                     setShapeOpen(false);
                   }}
                 >
-                  <div 
-                    className="w-4 h-3 rounded-sm"
-                    style={{ backgroundColor: selectedShapeColor }}
-                  ></div>
+                  <div className="w-4 h-3 bg-blue-500 rounded-sm"></div>
                   <span className="text-sm text-slate-700">Rectangle</span>
                 </button>
                 <button
@@ -305,10 +337,7 @@ export default function Ribbon({
                     setShapeOpen(false);
                   }}
                 >
-                  <div 
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: selectedShapeColor }}
-                  ></div>
+                  <div className="w-4 h-4 bg-green-500 rounded-full"></div>
                   <span className="text-sm text-slate-700">Circle</span>
                 </button>
                 <button
@@ -318,10 +347,7 @@ export default function Ribbon({
                     setShapeOpen(false);
                   }}
                 >
-                  <div 
-                    className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-l-transparent border-r-transparent"
-                    style={{ borderBottomColor: selectedShapeColor }}
-                  ></div>
+                  <div className="w-0 h-0 border-l-2 border-r-2 border-b-4 border-l-transparent border-r-transparent border-b-orange-500"></div>
                   <span className="text-sm text-slate-700">Triangle</span>
                 </button>
               </div>
