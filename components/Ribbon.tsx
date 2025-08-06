@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { useState } from "react";
-import { Bold, Italic, Underline, Type, Shapes, Palette } from "lucide-react";
+import { Bold, Italic, Underline, Type, Shapes, Palette, Copy, Clipboard, Download, Upload } from "lucide-react";
 
 const colors = [
   { name: "Black", value: "#000000" },
@@ -19,6 +19,54 @@ export default function Ribbon({ onCommand }: { onCommand: (cmd: string, value?:
   return (
     <div className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 shadow-lg">
       <div className="flex items-center gap-3 p-4">
+        {/* Copy/Paste Section */}
+        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-200">
+          <span className="text-sm font-medium text-slate-600 mr-2">Clipboard</span>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onCommand("copy")}
+            className="hover:bg-slate-100 text-slate-700"
+          >
+            <Copy className="w-4 h-4" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onCommand("paste")}
+            className="hover:bg-slate-100 text-slate-700"
+          >
+            <Clipboard className="w-4 h-4" />
+          </Button>
+        </div>
+
+        {/* Separator */}
+        <div className="h-8 w-px bg-slate-300" />
+
+        {/* Export/Import Section */}
+        <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-200">
+          <span className="text-sm font-medium text-slate-600 mr-2">File</span>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onCommand("export")}
+            className="hover:bg-slate-100 text-slate-700"
+          >
+            <Download className="w-4 h-4" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onCommand("import")}
+            className="hover:bg-slate-100 text-slate-700"
+          >
+            <Upload className="w-4 h-4" />
+          </Button>
+        </div>
+
+        {/* Separator */}
+        <div className="h-8 w-px bg-slate-300" />
+
         {/* Text Formatting Section */}
         <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg shadow-sm border border-slate-200">
           <span className="text-sm font-medium text-slate-600 mr-2">Format</span>
